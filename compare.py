@@ -14,17 +14,12 @@ def compare(twitter, username):
     following = twitter.get_friends_ids(screen_name=username)['ids']
     mutual = []
     not_mutual = []
-    you_not_back = []
 
     for i in range(0, len(followers)):
         if followers[i] in following:
             mutual.append(followers[i])
         else:
             not_mutual.append(followers[i])
-
-    for i in range(0, len(not_mutual)):
-        if not_mutual[i] in followers:
-            you_not_back.append(not_mutual[i])
 
     print("Users who follow you back")
     print("-------------------------")
@@ -34,13 +29,13 @@ def compare(twitter, username):
         except TwythonError:
             pass
 
-    print()
+    input("\nPress ENTER to continue...\n")
 
     print("Users who YOU DON\'T follow back")
     print("--------------------------------")
-    for i in range(0, len(you_not_back)):
+    for i in range(0, len(not_mutual)):
         try:
-            print(twitter.lookup_user(user_id=you_not_back[i])[0]['screen_name'])
+            print(twitter.lookup_user(user_id=not_mutual[i])[0]['screen_name'])
         except TwythonError:
             pass
 
